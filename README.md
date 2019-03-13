@@ -202,5 +202,7 @@ https://github.com/FutureSharks/rpi-security/tree/0.7
 About once every month or two my Raspberry Pi loses the WLAN connection. I created a cron job to check connectivity and reboot if the check fails.
 
 ```console
-echo '*/20 * * * * root /usr/bin/host api.telegram.org > /dev/null 2>1 || (/usr/bin/logger "Rebooting due to connectivity issue"; /sbin/shutdown -r now)' > /etc/cron.d/reboot-on-connection-failure
+wget https://raw.githubusercontent.com/FutureSharks/rpi-security/master/bin/check-telegram-connectivity.sh -O /usr/local/bin/check-telegram-connectivity.sh
+chmod 0755 /usr/local/bin/check-telegram-connectivity.sh
+echo '*/20 * * * * root /usr/local/bin/check-telegram-connectivity.sh' > /etc/cron.d/reboot-on-connection-failure
 ```
